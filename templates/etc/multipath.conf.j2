@@ -1,0 +1,34 @@
+{{ ansible_managed | comment }}
+
+# device-mapper-multipath configuration file
+
+# For a complete list of the default configuration values, run either:
+# # multipath -t
+# or
+# # multipathd show config
+
+# For a list of configuration options with descriptions, see the
+# multipath.conf man page.
+
+defaults {
+	user_friendly_names {{ 'yes' if multipath_user_friendly_names else 'no' }}
+	find_multipaths yes
+}
+
+{%- if multipath_blacklist_wwids is defined +%}
+blacklist {
+{%- for wwid in multipath_blacklist_wwids +%}
+    wwid {{ wwid }}
+{%- endfor +%}
+}
+{%- endif +%}
+
+{%- if multipath_devices is defined +%}
+devices {
+{%- for device in multipath_devices +%}
+    device {
+        {{ device | indent(width=8) }}
+    }
+{%- endfor +%}
+}
+{%- endif +%}

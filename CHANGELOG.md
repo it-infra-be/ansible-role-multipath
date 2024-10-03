@@ -4,4 +4,4 @@
 
 ### New Features
 
-- Created Ansible role template
+- Install and configure multipathd

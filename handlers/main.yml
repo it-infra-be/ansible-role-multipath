@@ -1,2 +1,7 @@
 ---
+- name: Reload Multipathd
+  ansible.builtin.systemd_service:
+    name: multipathd
+    state: reloaded
+  listen: reload multipathd
 ...
